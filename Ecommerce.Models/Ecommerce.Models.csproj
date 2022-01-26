@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Entity\"/>
+    <Folder Include="ViewModels\"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.13.1"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.2"/>
+  </ItemGroup>
+</Project>
