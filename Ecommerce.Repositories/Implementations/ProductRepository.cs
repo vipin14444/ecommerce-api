@@ -94,5 +94,28 @@ namespace Ecommerce.Repositories
             {
             }
         }
+        public async Task EditProduct(Product product)
+        {
+            try
+            {
+                // Update Product
+                bool id = await Database.UpdateAsync<Product>(product);
+                if (id && product.ProductId != 0 && product.ProductId != null)
+                {
+                    // Delete Previous Attributes
+                    string query = $"Delete FROM ProductAttribute where productid = {product.ProductId}";
+                    await Database.QueryAsync<ProductAttribute>(query);
+                    // Add New Attributes
+                    foreach (ProductAttribute attribute in product.ProdAttributes)
+                    {
+                        attribute.ProductId = product.ProductId;
+                        await Database.InsertAsync<ProductAttribute>(attribute);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
     }
 }

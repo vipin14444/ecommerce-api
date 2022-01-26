@@ -82,5 +82,16 @@ namespace Ecommerce.Services
             {
             }
         }
+        public async Task EditProduct(ProductViewModel product)
+        {
+            try
+            {
+                Product mappedProduct = _mapper.Map<Product>(product);
+                await _productRepository.EditProduct(mappedProduct);
+            }
+            catch (Exception e)
+            {
+            }
+        }
     }
 }
