@@ -6,9 +6,9 @@ namespace Ecommerce.Services
 {
     public interface IProductService
     {
-        public Task<List<ProductViewModel>> GetList();
-        // public Task Create(User user);
-        // public Task<List<UserViewModel>> Read();
-        // public Task<UserViewModel> Read(string id);
+        public Task<List<ProductViewModel>> GetList(IGridFilters filters);
+        public Task<List<ProductCategoryViewModel>> GetAllProductCategory();
+        public Task CreateProduct(ProductViewModel product);
+        public Task<ProductViewModel> GetProduct(int id);
     }
 }

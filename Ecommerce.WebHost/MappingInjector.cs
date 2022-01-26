@@ -19,6 +19,8 @@ namespace Ecommerce.WebHost
         {
             CreateMap<Product, ProductViewModel>();
             CreateMap<ProductViewModel, Product>();
+            CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<ProductCategoryViewModel, ProductCategory>();
         }
     }
 }

@@ -1,15 +1,25 @@
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
+using Dapper.Contrib.Extensions;
 
 namespace Ecommerce.Models
 {
-    public class Product : BaseModel
+    [Table("Product")]
+    public class Product
     {
-        [SwaggerSchema(ReadOnly = true)]
+        [Write(false)]
         public long ProductId { get; set; }
         public int ProdCatId { get; set; }
         public string ProdName { get; set; }
         public string ProdDescription { get; set; }
+        [Write(false)]
+        public List<ProductAttribute> ProdAttributes { get; set; }
+    }
+
+    [Table("ProductAttribute")]
+    public class ProductAttribute
+    {
+        public long ProductId { get; set; }
+        public int AttributeId { get; set; }
+        public string AttributeValue { get; set; }
     }
 }

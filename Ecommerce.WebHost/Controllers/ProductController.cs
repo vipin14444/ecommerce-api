@@ -17,12 +17,12 @@ namespace Ecommerce.WebHost.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetList()
+        [HttpPost]
+        public async Task<IActionResult> GetList([FromBody] IGridFilters filters)
         {
             try
             {
-                List<ProductViewModel> list = await _productService.GetList();
+                List<ProductViewModel> list = await _productService.GetList(filters);
                 return Ok(new { StatusCode = 200, StatusMessage = "Success", Payload = list });
             }
             catch (Exception e)
@@ -31,20 +31,32 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
-        // [AllowAnonymous]
-        // [HttpPost]
-        // public async Task<IActionResult> Post([FromBody] User user)
-        // {
-        //     try
-        //     {
-        //         await _productService.Create(user);
-        //         return Ok(new { StatusCode = 200, StatusMessage = "Success" });
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         _logger.LogError(e.Message, e);
-        //         return Ok(new { StatusCode = 500, StatusMessage = e.Message });
-        //     }
-        // }
+        [HttpGet("/GetAllProductCategory")]
+        public async Task<IActionResult> GetAllProductCategory()
+        {
+            try
+            {
+                List<ProductCategoryViewModel> list = await _productService.GetAllProductCategory();
+                return Ok(new { StatusCode = 200, StatusMessage = "Success", Payload = list });
+            }
+            catch (Exception e)
+            {
+                return Ok(new { StatusCode = 500, StatusMessage = e.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct([FromBody] ProductViewModel product)
+        {
+            try
+            {
+                await _productService.CreateProduct(product);
+                return Ok(new { StatusCode = 200, StatusMessage = "Success" });
+            }
+            catch (Exception e)
+            {
+                return Ok(new { StatusCode = 500, StatusMessage = e.Message });
+            }
+        }
     }
 }
