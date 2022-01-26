@@ -9,6 +9,7 @@ namespace Ecommerce.Services
         public Task<List<ProductViewModel>> GetList(IGridFilters filters);
         public Task<List<ProductCategoryViewModel>> GetAllProductCategory();
         public Task CreateProduct(ProductViewModel product);
+        public Task<List<ProductAttributeLookupViewModel>> GetProductAttributeLookup(int CatId);
         public Task<ProductViewModel> GetProduct(int id);
     }
 }

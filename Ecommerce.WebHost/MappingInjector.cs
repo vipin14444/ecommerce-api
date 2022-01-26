@@ -21,6 +21,10 @@ namespace Ecommerce.WebHost
             CreateMap<ProductViewModel, Product>();
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<ProductCategoryViewModel, ProductCategory>();
+            CreateMap<ProductAttributeLookup, ProductAttributeLookupViewModel>();
+            CreateMap<ProductAttributeLookupViewModel, ProductAttributeLookup>();
+            CreateMap<ProductAttribute, ProductAttributeViewModel>();
+            CreateMap<ProductAttributeViewModel, ProductAttribute>();
         }
     }
 }

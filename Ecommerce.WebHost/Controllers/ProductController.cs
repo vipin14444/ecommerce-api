@@ -17,8 +17,8 @@ namespace Ecommerce.WebHost.Controllers
             _productService = productService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetList([FromBody] IGridFilters filters)
+        [HttpPost("GetList")]
+        public async Task<IActionResult> GetList([FromBody] GridFilters filters)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
-        [HttpGet("/GetAllProductCategory")]
+        [HttpGet("GetAllProductCategory")]
         public async Task<IActionResult> GetAllProductCategory()
         {
             try
@@ -45,13 +45,27 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductViewModel product)
         {
             try
             {
                 await _productService.CreateProduct(product);
                 return Ok(new { StatusCode = 200, StatusMessage = "Success" });
+            }
+            catch (Exception e)
+            {
+                return Ok(new { StatusCode = 500, StatusMessage = e.Message });
+            }
+        }
+
+        [HttpGet("GetProductAttributeLookup")]
+        public async Task<IActionResult> GetProductAttributeLookup(int CatId)
+        {
+            try
+            {
+                List<ProductAttributeLookupViewModel> list = await _productService.GetProductAttributeLookup(CatId);
+                return Ok(new { StatusCode = 200, StatusMessage = "Success", Payload = list });
             }
             catch (Exception e)
             {

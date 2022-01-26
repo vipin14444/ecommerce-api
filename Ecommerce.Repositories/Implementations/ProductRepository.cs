@@ -30,6 +30,22 @@ namespace Ecommerce.Repositories
             }
         }
 
+        public async Task<List<ProductAttributeLookup>> GetProductAttributeLookup(int CatId)
+        {
+            try
+            {
+                string query = $"SELECT * FROM ProductAttributeLookup where ProdCatId={CatId}";
+                List<ProductAttributeLookup> list =
+                    (await Database.QueryAsync<ProductAttributeLookup>(query))
+                        .AsList();
+                return list;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public async Task<Product> GetProduct(int id)
         {
             try
@@ -64,7 +80,15 @@ namespace Ecommerce.Repositories
         {
             try
             {
-                await Database.InsertAsync<Product>(product);
+                int id = await Database.InsertAsync<Product>(product);
+                if (id != null && id != 0)
+                {
+                    foreach (ProductAttribute attribute in product.ProdAttributes)
+                    {
+                        attribute.ProductId = id;
+                        await Database.InsertAsync<ProductAttribute>(attribute);
+                    }
+                }
             }
             catch (Exception e)
             {

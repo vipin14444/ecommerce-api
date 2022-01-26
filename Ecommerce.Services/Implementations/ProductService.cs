@@ -45,11 +45,25 @@ namespace Ecommerce.Services
             }
         }
 
-        public async Task<ProductViewModel> GetProduct(int id){
+        public async Task<ProductViewModel> GetProduct(int id)
+        {
             try
             {
                 ProductViewModel product = _mapper.Map<ProductViewModel>(await _productRepository.GetProduct(id));
                 return product;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task<List<ProductAttributeLookupViewModel>> GetProductAttributeLookup(int CatId)
+        {
+            try
+            {
+                List<ProductAttributeLookup> modelList = await _productRepository.GetProductAttributeLookup(CatId);
+                List<ProductAttributeLookupViewModel> list = _mapper.Map<List<ProductAttributeLookup>, List<ProductAttributeLookupViewModel>>(modelList);
+                return list;
             }
             catch (Exception e)
             {

@@ -10,5 +10,6 @@ namespace Ecommerce.Repositories
         public Task<List<ProductCategory>> GetAllProductCategory();
         public Task CreateProduct(Product product);
         public Task<Product> GetProduct(int id);
+        public Task<List<ProductAttributeLookup>> GetProductAttributeLookup(int CatId);
     }
 }
