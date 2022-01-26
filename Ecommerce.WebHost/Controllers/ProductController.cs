@@ -45,6 +45,20 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
+        [HttpGet("GetProduct")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            try
+            {
+                ProductViewModel product = await _productService.GetProduct(id);
+                return Ok(new { StatusCode = 200, StatusMessage = "Success", Payload = product });
+            }
+            catch (Exception e)
+            {
+                return Ok(new { StatusCode = 500, StatusMessage = e.Message });
+            }
+        }
+
         [HttpPost("CreateProduct")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductViewModel product)
         {
