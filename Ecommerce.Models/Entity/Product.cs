@@ -6,7 +6,7 @@ namespace Ecommerce.Models
     [Table("Product")]
     public class Product
     {
-        [Write(false)]
+        [Key]
         public long ProductId { get; set; }
         public int ProdCatId { get; set; }
         public string ProdName { get; set; }
@@ -20,6 +20,8 @@ namespace Ecommerce.Models
     {
         public long ProductId { get; set; }
         public int AttributeId { get; set; }
+        [Write(false)]
+        public string AttributeName { get; set; }
         public string AttributeValue { get; set; }
     }
 }

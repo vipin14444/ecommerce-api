@@ -53,7 +53,7 @@ namespace Ecommerce.Repositories
                 Product product = await Database.GetAsync<Product>(id);
                 if (product != null)
                 {
-                    string query = $"SELECT * FROM ProductAttribute where productid = {product.ProductId}";
+                    string query = $"SELECT PA.*, PAL.AttributeName FROM ProductAttribute AS PA LEFT JOIN ProductAttributeLookup AS PAL ON PA.AttributeId=PAL.AttributeId where productid = {product.ProductId} ";
                     product.ProdAttributes = (await Database.QueryAsync<ProductAttribute>(query)).AsList();
                 }
                 return product;
