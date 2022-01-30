@@ -17,6 +17,7 @@ namespace Ecommerce.WebHost.Controllers
             _productService = productService;
         }
 
+        // Get All Products.
         [HttpPost("GetList")]
         public async Task<IActionResult> GetList([FromBody] GridFilters filters)
         {
@@ -31,6 +32,7 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
+        // Get All Product Categories For Dropdown.
         [HttpGet("GetAllProductCategory")]
         public async Task<IActionResult> GetAllProductCategory()
         {
@@ -45,6 +47,7 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
+        // Get Single Product By Id.
         [HttpGet("GetProduct")]
         public async Task<IActionResult> GetProduct(int id)
         {
@@ -59,6 +62,7 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
+        // Create New Record in Product Table and Add It's Attributes to Atributes Table.
         [HttpPost("CreateProduct")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductViewModel product)
         {
@@ -73,6 +77,7 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
+        // Edit Existing Product and Attributes.
         [HttpPost("EditProduct")]
         public async Task<IActionResult> EditProduct([FromBody] ProductViewModel product)
         {
@@ -87,6 +92,7 @@ namespace Ecommerce.WebHost.Controllers
             }
         }
 
+        // Get All Attributes From ProductAttributeLookup Table Based on Category Selected. 
         [HttpGet("GetProductAttributeLookup")]
         public async Task<IActionResult> GetProductAttributeLookup(int CatId)
         {

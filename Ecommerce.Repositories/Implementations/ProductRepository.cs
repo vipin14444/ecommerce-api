@@ -102,7 +102,7 @@ namespace Ecommerce.Repositories
             {
                 // Update Product
                 bool id = await Database.UpdateAsync<Product>(product);
-                if (id && product.ProductId != 0 && product.ProductId != null)
+                if (id && product.ProductId > 0)
                 {
                     // Delete Previous Attributes
                     string query = $"Delete FROM ProductAttribute where productid = {product.ProductId}";

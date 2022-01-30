@@ -1,15 +1,11 @@
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Ecommerce.Models;
-using Ecommerce.Repositories;
 
 namespace Ecommerce.WebHost
 {
@@ -30,14 +26,6 @@ namespace Ecommerce.WebHost
             services.InjectMappings();
             services.AddControllers();
 
-            #region To Change the naming policy to Pascal Case in API Response (Not in use)
-            // services.AddControllers().AddJsonOptions(options =>
-            // {
-            //     options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            //     options.JsonSerializerOptions.DictionaryKeyPolicy = null;
-            // });
-            #endregion
-
             #region Database Connection Preparations
             services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
             services.AddSingleton<IDatabaseSettings>(x => x.GetRequiredService<IOptions<DatabaseSettings>>().Value);
@@ -48,25 +36,6 @@ namespace Ecommerce.WebHost
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ecommerce.WebHost", Version = "v1" });
                 c.EnableAnnotations();
-                // var SecurityScheme = new OpenApiSecurityScheme
-                // {
-                //     Name = "JWT Authentication",
-                //     Description = "Enter JWT Bearer token **_only_**",
-                //     In = ParameterLocation.Header,
-                //     Type = SecuritySchemeType.Http,
-                //     Scheme = "bearer", // must be lower case
-                //     BearerFormat = "JWT",
-                //     Reference = new OpenApiReference
-                //     {
-                //         Id = JwtBearerDefaults.AuthenticationScheme,
-                //         Type = ReferenceType.SecurityScheme
-                //     }
-                // };
-                // c.AddSecurityDefinition(SecurityScheme.Reference.Id, SecurityScheme);
-                // c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                //     {
-                //         {SecurityScheme, new string[] { }}
-                //     });
             });
             #endregion
 
@@ -97,7 +66,6 @@ namespace Ecommerce.WebHost
             app.UseRouting();
 
             app.UseAuthentication();
-            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
