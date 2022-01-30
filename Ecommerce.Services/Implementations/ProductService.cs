@@ -17,13 +17,12 @@ namespace Ecommerce.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ProductViewModel>> GetList(IGridFilters filters)
+        public async Task<object> GetList(IGridFilters filters)
         {
             try
             {
-                List<Product> modelList = await _productRepository.GetList(filters);
-                List<ProductViewModel> list = _mapper.Map<List<Product>, List<ProductViewModel>>(modelList);
-                return list;
+                var data = await _productRepository.GetList(filters);
+                return data;
             }
             catch (Exception e)
             {

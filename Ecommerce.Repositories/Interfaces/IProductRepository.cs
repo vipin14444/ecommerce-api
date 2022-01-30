@@ -6,7 +6,7 @@ namespace Ecommerce.Repositories
 {
     public interface IProductRepository
     {
-        public Task<List<Product>> GetList(IGridFilters filters);
+        public Task<object> GetList(IGridFilters filters);
         public Task<List<ProductCategory>> GetAllProductCategory();
         public Task CreateProduct(Product product);
         public Task EditProduct(Product product);

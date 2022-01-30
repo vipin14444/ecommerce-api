@@ -6,7 +6,7 @@ namespace Ecommerce.Services
 {
     public interface IProductService
     {
-        public Task<List<ProductViewModel>> GetList(IGridFilters filters);
+        public Task<object> GetList(IGridFilters filters);
         public Task<List<ProductCategoryViewModel>> GetAllProductCategory();
         public Task CreateProduct(ProductViewModel product);
         public Task EditProduct(ProductViewModel product);

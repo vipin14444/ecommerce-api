@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using Dapper;
 using Ecommerce.Models;
+using System.Linq;
 
 namespace Ecommerce.Repositories
 {
@@ -14,7 +15,7 @@ namespace Ecommerce.Repositories
         {
         }
 
-        public async Task<List<Product>> GetList(IGridFilters filters)
+        public async Task<object> GetList(IGridFilters filters)
         {
             try
             {
@@ -22,7 +23,8 @@ namespace Ecommerce.Repositories
                 List<Product> list =
                     (await Database.QueryAsync<Product>(query))
                         .AsList();
-                return list;
+                long count = (await Database.QueryAsync<long>("SELECT Count(ProductId) FROM Product")).FirstOrDefault();
+                return new { list, count };
             }
             catch (Exception e)
             {

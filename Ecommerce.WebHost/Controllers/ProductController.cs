@@ -22,8 +22,8 @@ namespace Ecommerce.WebHost.Controllers
         {
             try
             {
-                List<ProductViewModel> list = await _productService.GetList(filters);
-                return Ok(new { StatusCode = 200, StatusMessage = "Success", Payload = list });
+                var data = await _productService.GetList(filters);
+                return Ok(new { StatusCode = 200, StatusMessage = "Success", Payload = data });
             }
             catch (Exception e)
             {
